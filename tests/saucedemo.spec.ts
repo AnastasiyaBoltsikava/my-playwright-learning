@@ -132,12 +132,12 @@ test('Change product sort order', async ({ page }) => {
 
 test('State after refresh', async ({ page }) => {
 
-    // 5. add product to cart
+    // 5. add product to cart and check
     await page.locator('[data-test="add-to-cart-sauce-labs-backpack"]').click();
 
     // 6. refresh the page
     await page.reload();
-
+    await page.reload();
     // 7. verify cart badge with number 1 is still visible after refresh
     await expect(page.locator(".shopping_cart_badge"),"Cart badge should still show 1 after refresh").toHaveText("1");
  });

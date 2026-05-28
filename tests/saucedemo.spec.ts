@@ -1,89 +1,96 @@
 import { test, expect } from '@playwright/test';
 
+// POSITIVE TESTS
 test.describe('SauceDemo login (positive)', () => {
-test('Login-happy path', async ({ page }) => {
-await page.goto('https://www.saucedemo.com/');
+    test('Login-happy path', async ({ page }) => {
+        await page.goto('https://www.saucedemo.com/');
 
-await page.getByPlaceholder('Username').fill('standard_user');
-await page.getByPlaceholder('Password').fill('secret_sauce');
+        await page.getByPlaceholder('Username').fill('standard_user');
+        await page.getByPlaceholder('Password').fill('secret_sauce');
 
-await page.getByRole('button', { name: 'Login' }).click();
+        await page.getByRole('button', { name: 'Login' }).click();
 
-await expect(page, 'Should redirect to inventory page').toHaveURL(/inventory/);
+        await expect(page, 'Should redirect to inventory page').toHaveURL(/inventory/);
+    });
 });
-});
+
+// NEGATIVE TESTS
 test.describe('SauceDemo Login (negative)', () => {
-test('wrong password', async ({ page }) => {
+    test('wrong password', async ({ page }) => {
 
-await page.goto('https://www.saucedemo.com/');
+        await page.goto('https://www.saucedemo.com/');
 
-await page.getByPlaceholder('Username').fill('standard_user');
-await page.getByPlaceholder('Password').fill('wrong_password');
+        await page.getByPlaceholder('Username').fill('standard_user');
+        await page.getByPlaceholder('Password').fill('wrong_password');
 
-await page.getByRole('button', { name: 'Login' }).click();
+        await page.getByRole('button', { name: 'Login' }).click();
 
 // 4. verify error message
-await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username and password do not match any user in this service');
+        await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username and password do not match any user in this service');
 });
-test('Click the Login button without entering credentials', async ({ page }) => {
+    test('Click the Login button without entering credentials', async ({ page }) => {
 
-await page.goto('https://www.saucedemo.com/');
+        await page.goto('https://www.saucedemo.com/');
 
-await page.getByRole('button', { name: 'Login' }).click();
-await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username is required');
+        await page.getByRole('button', { name: 'Login' }).click();
+        await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username is required');
 });
-test('Click the Login button without entering password', async ({ page }) => {
+    test('Click the Login button without entering password', async ({ page }) => {
 
-  await page.goto('https://www.saucedemo.com/');
+        await page.goto('https://www.saucedemo.com/');
 
-  await page.getByPlaceholder('Username').fill('standard_user');
+        await page.getByPlaceholder('Username').fill('standard_user');
 
-  await page.getByRole('button', { name: 'Login' }).click();
-  await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Password is required');
+        await page.getByRole('button', { name: 'Login' }).click();
+        await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Password is required');
 });
-test('Click the Login button without entering username', async ({ page }) => {
+    test('Click the Login button without entering username', async ({ page }) => {
 
-  await page.goto('https://www.saucedemo.com/');
+        await page.goto('https://www.saucedemo.com/');
 
-  await page.getByPlaceholder('Password').fill('secret_sauce');
+        await page.getByPlaceholder('Password').fill('secret_sauce');
 
-  await page.getByRole('button', { name: 'Login' }).click();
-  await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username is required');
+        await page.getByRole('button', { name: 'Login' }).click();
+        await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username is required');
 });
+    test('Login with locked_out_user', async ({ page }) => {
+            
+        await page.goto('https://www.saucedemo.com/'); 
+        await page.getByPlaceholder('Username').fill('locked_out_user');
+        await page.getByPlaceholder('Password').fill('secret_sauce');
+
+        await page.getByRole('button', { name: 'Login' }).click();
+        await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Sorry, this user has been locked out.');
+    });
 });
 
-test.describe('SauceDemo - Authenticated', () => {
+// TESTS after login
+test.describe('SauceDemo inventory', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('https://www.saucedemo.com/');
 
-  test.beforeEach(async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
+        await page.getByPlaceholder('Username').fill('standard_user');
+        await page.getByPlaceholder('Password').fill('secret_sauce');
 
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
-
-    await page.getByRole('button', { name: 'Login' }).click();
-
-    await expect(page).toHaveURL(/inventory/);
-  });
+        await page.getByRole('button', { name: 'Login' }).click();
+        await expect(page, 'Should redirect to inventory page').toHaveURL(/inventory/);
+    });
 
 // TASK 3 
-// Add product to cart
-
-test('Add product to cart', async ({ page }) => {
-
-  // 5. add product to cart
-  await page.getByText('Sauce Labs Backpack').click();
-  await page.getByRole('button', { name: 'Add to cart' }).click();
+    // 5. add product to cart
+    test('Add product to cart', async ({ page }) => {
+        await page.getByText('Sauce Labs Backpack').click();
+        await page.getByRole('button', { name: 'Add to cart' }).click();
 
     // 6. verify cart badge with number 1
-await expect(page.locator(".shopping_cart_badge"),'Cart badge should show 1 item').toHaveText("1");
+        await expect(page.locator(".shopping_cart_badge"),'Cart badge should show 1 item').toHaveText("1");
 });
 
 // TASK 4 
 // Add product to cart and remove it
-
 test('Add product to cart and remove it', async ({ page }) => {
 
-  // 5. add product to cart
+    // 5. add product to cart
   await page.getByText('Sauce Labs Bike Light').click();
   await page.getByRole('button', { name: 'Add to cart' }).click();
 
@@ -154,5 +161,5 @@ test('Re-test State after refresh check new branch', async ({ page }) => {
 
     // 7. verify cart badge with number 1 is still visible after refresh
     await expect(page.locator(".shopping_cart_badge"),"Cart badge should still show 1 after refresh").toHaveText("1");
- });
+    });
 });

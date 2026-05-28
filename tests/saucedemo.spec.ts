@@ -51,18 +51,17 @@ test('Click the Login button without entering username', async ({ page }) => {
   await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username is required');
 });
 });
-
 test.describe('SauceDemo - Authenticated', () => {
 
-  test.beforeEach(async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/');
+    test.beforeEach(async ({ page }) => {
+        await page.goto('https://www.saucedemo.com/');
 
-    await page.getByPlaceholder('Username').fill('standard_user');
-    await page.getByPlaceholder('Password').fill('secret_sauce');
+        await page.getByPlaceholder('Username').fill('standard_user');
+        await page.getByPlaceholder('Password').fill('secret_sauce');
 
-    await page.getByRole('button', { name: 'Login' }).click();
+        await page.getByRole('button', { name: 'Login' }).click();
 
-    await expect(page).toHaveURL(/inventory/);
+        await expect(page).toHaveURL(/inventory/);
   });
 
 // TASK 3 

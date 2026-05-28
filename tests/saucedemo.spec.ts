@@ -63,8 +63,19 @@ test.describe('SauceDemo - Authenticated', () => {
 
         await expect(page).toHaveURL(/inventory/);
   });
+  // TESTS after login
+test.describe('SauceDemo inventory', () => {
+    test.beforeEach(async ({ page }) => {
+        await page.goto('https://www.saucedemo.com/');
 
-// TASK 3 
+        await page.getByPlaceholder('Username').fill('standard_user');
+        await page.getByPlaceholder('Password').fill('secret_sauce');
+
+        await page.getByRole('button', { name: 'Login' }).click();
+        await expect(page, 'Should redirect to inventory page').toHaveURL(/inventory/);
+    });
+
+  // TASK 3 
 // Add product to cart
 
 test('Add product to cart', async ({ page }) => {

@@ -1,4 +1,4 @@
-//1 line I updated I need conflictus
+//1 line I updated I need conflict
 import { test, expect } from '@playwright/test';
 
 test.describe('SauceDemo login (positive)', () => {

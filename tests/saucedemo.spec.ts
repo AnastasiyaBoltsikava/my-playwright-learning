@@ -166,5 +166,5 @@ test('Red-test State after refresh check VS Code Git workflow', async ({ page })
 
     // 7. verify cart badge with number 1 is still visible after refresh
     await expect(page.locator(".shopping_cart_badge"),"Cart badge should still show 1 after refresh").toHaveText("1");
+ });
 });
-    });

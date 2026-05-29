@@ -1,19 +1,16 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('SauceDemo login (positive)', () => {
-test('Login-happy path', async ({ page }) => {
-await page.goto('https://www.saucedemo.com/');
-
-await page.getByPlaceholder('Username').fill('standard_user');
-await page.getByPlaceholder('Password').fill('secret_sauce');
-
-await page.getByRole('button', { name: 'Login' }).click();
-
-await expect(page, 'Should redirect to inventory page').toHaveURL(/inventory/);
-});
+    test('Login-happy path', async ({ page }) => {
+        await page.goto('https://www.saucedemo.com/');
+        await page.getByPlaceholder('Username').fill('standard_user');
+        await page.getByPlaceholder('Password').fill('secret_sauce');
+        await page.getByRole('button', { name: 'Login' }).click();
+        await expect(page, 'Should redirect to inventory page').toHaveURL(/inventory/);
+    });
 });
 test.describe('SauceDemo Login (negative)', () => {
-test('wrong password', async ({ page }) => {
+    test('wrong password', async ({ page }) => {
 
 await page.goto('https://www.saucedemo.com/');
 
@@ -25,14 +22,14 @@ await page.getByRole('button', { name: 'Login' }).click();
 // 4. verify error message
 await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username and password do not match any user in this service');
 });
-test('Click the Login button without entering credentials', async ({ page }) => {
+    test('Click the Login button without entering credentials', async ({ page }) => {
 
 await page.goto('https://www.saucedemo.com/');
 
 await page.getByRole('button', { name: 'Login' }).click();
 await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username is required');
 });
-test('Click the Login button without entering password', async ({ page }) => {
+    test('Click the Login button without entering password', async ({ page }) => {
 
   await page.goto('https://www.saucedemo.com/');
 
@@ -41,7 +38,7 @@ test('Click the Login button without entering password', async ({ page }) => {
   await page.getByRole('button', { name: 'Login' }).click();
   await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Password is required');
 });
-test('Click the Login button without entering username', async ({ page }) => {
+    test('Click the Login button without entering username', async ({ page }) => {
 
   await page.goto('https://www.saucedemo.com/');
 
@@ -50,21 +47,26 @@ test('Click the Login button without entering username', async ({ page }) => {
   await page.getByRole('button', { name: 'Login' }).click();
   await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Username is required');
 });
+    test('Log in with locked_out_user', async ({ page }) => {
+
+  await page.goto('https://www.saucedemo.com/');
+
+  await page.getByPlaceholder('Username').fill('locked_out_user');
+  await page.getByPlaceholder('Password').fill('secret_sauce');
+
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.locator('[data-test="error"]')).toContainText('Epic sadface: Sorry, this user has been locked out.');
+    });
 });
-
-test.describe('SauceDemo - Authenticated', () => {
-
-  test.beforeEach(async ({ page }) => {
+test.describe('SauceDemo Cart functionality', () => {
+test.beforeEach(async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
-
     await page.getByPlaceholder('Username').fill('standard_user');
     await page.getByPlaceholder('Password').fill('secret_sauce');
-
     await page.getByRole('button', { name: 'Login' }).click();
-
     await expect(page).toHaveURL(/inventory/);
   });
-
+        
 // TASK 3 
 // Add product to cart
 
@@ -137,7 +139,6 @@ test('State after refresh', async ({ page }) => {
 
     // 6. refresh the page
     await page.reload();
-    await page.reload();
     // 7. verify cart badge with number 1 is still visible after refresh
     await expect(page.locator(".shopping_cart_badge"),"Cart badge should still show 1 after refresh").toHaveText("1");
  });
@@ -154,5 +155,5 @@ test('Re-test State after refresh check new branch', async ({ page }) => {
 
     // 7. verify cart badge with number 1 is still visible after refresh
     await expect(page.locator(".shopping_cart_badge"),"Cart badge should still show 1 after refresh").toHaveText("1");
- });
 });
+    });

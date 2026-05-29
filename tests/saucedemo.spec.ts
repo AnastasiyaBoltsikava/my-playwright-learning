@@ -1,4 +1,4 @@
-//line 1 test conflict
+//1 line I updated I need conflict
 import { test, expect } from '@playwright/test';
 
 test.describe('SauceDemo login (positive)', () => {
@@ -157,7 +157,7 @@ test('Re-test State after refresh check new branch', async ({ page }) => {
     // 7. verify cart badge with number 1 is still visible after refresh
     await expect(page.locator(".shopping_cart_badge"),"Cart badge should still show 1 after refresh").toHaveText("1");
 });
-test('Red-test State after refresh check VS Code Git workflow', async ({ page }) => {
+test('Re-test State after refresh check VS Code Git workflow', async ({ page }) => {
 
     // 5. add product to cart and check
     await page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();

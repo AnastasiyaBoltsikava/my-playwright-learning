@@ -1,4 +1,5 @@
 //1 line I updated I need conflict
+ // I should use VS Code Source Control panel to stage and commit changes, then push to remote repository and create a pull request to merge changes into main branch. After that I can check if the changes are reflected in the main branch and if the tests are passing successfully.
 import { test, expect } from '@playwright/test';
 
 test.describe('SauceDemo login (positive)', () => {
@@ -167,6 +168,5 @@ test('Re-test State after refresh check VS Code Git workflow', async ({ page }) 
 
     // 7. verify cart badge with number 1 is still visible after refresh
     await expect(page.locator(".shopping_cart_badge"),"Cart badge should still show 1 after refresh").toHaveText("1");
- });
- // I should use VS Code Source Control panel to stage and commit changes, then push to remote repository and create a pull request to merge changes into main branch. After that I can check if the changes are reflected in the main branch and if the tests are passing successfully.
+    });
 });

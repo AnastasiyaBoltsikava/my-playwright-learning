@@ -1,4 +1,4 @@
-//1 line I updated I need conflict
+//1 line I updated I need conflict DONE
 import { test, expect } from '@playwright/test';
 
 test.describe('SauceDemo login (positive)', () => {
@@ -119,6 +119,16 @@ test('Add multiple products to cart and remove them', async ({ page }) => {
   await expect(page.locator(".shopping_cart_badge"),'Cart badge should show 2 items').toHaveText("2");
 });
 
+// Final project Add 2 products to the cart, verify the badge shows “2”
+test('Add 2 products to cart', async ({ page }) => {
+    await page.locator('[data-test="add-to-cart-sauce-labs-onesie"]').click();
+    await expect(page.locator(".shopping_cart_badge"),'Cart badge should show 1 item').toHaveText("1");
+    await page.locator('[data-test="add-to-cart-sauce-labs-fleece-jacket"]').click();
+    await expect(page.locator(".shopping_cart_badge"),'Cart badge should show 2 items').toHaveText("2");
+    await page.locator('[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]').click();
+    await expect(page.locator(".shopping_cart_badge"),'Cart badge should show 3 items').toHaveText("3");
+});
+
 // BONUS 9: Sorting. Change the product sort order
 test('Change product sort order', async ({ page }) => {
 
@@ -168,4 +178,21 @@ test('Re-test State after refresh check VS Code Git workflow', async ({ page }) 
     // 7. verify cart badge with number 1 is still visible after refresh
     await expect(page.locator(".shopping_cart_badge"),"Cart badge should still show 1 after refresh").toHaveText("1");
  });
+
+ // Task Final project. User can complete checkout and see success message
+test('User can complete checkout and see success message', async ({ page }) => {
+    await page.locator('[data-test="add-to-cart-sauce-labs-onesie"]').click();
+    await expect(page.locator(".shopping_cart_badge"),'Cart badge should show 1 item').toHaveText("1");
+    await page.locator('[data-test="shopping-cart-link"]').click();
+    await expect(page).toHaveURL(/cart/);
+    await page.locator('[data-test="checkout"]').click();
+    await expect(page).toHaveURL(/checkout-step-one/);
+    await page.locator('[data-test="firstName"]').fill('John');
+    await page.locator('[data-test="lastName"]').fill('Doe');
+    await page.locator('[data-test="postalCode"]').fill('12345');
+    await page.locator('[data-test="continue"]').click();
+    await expect(page).toHaveURL(/checkout-step-two/);
+    await page.locator('[data-test="finish"]').click();
+    await expect(page.locator('.complete-header')).toHaveText('Thank you for your order!');
+    });
 });

@@ -1,4 +1,5 @@
-//1 line I updated I need conflict DONE
+//1 line I updated I need conflict
+// I should use VS Code Source Control panel to stage and commit changes, then push to remote repository and create a pull request to merge changes into main branch. After that I can check if the changes are reflected in the main branch and if the tests are passing successfully.
 import { test, expect } from '@playwright/test';
 
 test.describe('SauceDemo login (positive)', () => {

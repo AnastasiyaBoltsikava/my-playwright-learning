@@ -1,0 +1,12 @@
+Final Project Plan:
+
+Site:
+https://www.saucedemo.com/
+
+Test scenarios:
+
+Verify valid user can log in successfully and open inventory page;
+Verify locked_out_user cannot log in and correct error message is displayed;
+Verify user can add two products to cart and cart badge displays correct number;
+Verify user can remove product from cart and cart badge updates correctly;
+Verify user can complete checkout flow and see successful order message;

@@ -6,5 +6,7 @@ export const errorMessages = {
     emptyUsernameAndPassword: "Epic sadface: Username is required",
 };
 
-
+export const messages = {
+    successMessage: "Thank you for your order!",
+};
 

@@ -18,7 +18,9 @@ export class InventoryPage {
     async addFirstItemToCart() {
     await this.addToCartButton.first().click();
   }
-  
+    async addSecondItemToCart() {
+    await this.addToCartButton.nth(1).click();
+  }
     async openCart() {
     await this.cartButton.click();
   }

@@ -7,7 +7,6 @@ test("StandardUser can log in", async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.open();
-
   await loginPage.login(
     users.standardUser.username,
     users.standardUser.password
@@ -20,7 +19,6 @@ test("lockedUser can't log in", async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.open();
-
   await loginPage.login(
     users.lockedUser.username,
     users.lockedUser.password
@@ -33,7 +31,6 @@ test("User login with wrong password", async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.open();
-
   await loginPage.login(
     users.standardUser.username,
     users.standardUser.password + "_wrong"
@@ -45,7 +42,6 @@ test("User login with empty username", async ({ page }) => {
   const loginPage = new LoginPage(page);
 
   await loginPage.open();
-
   await loginPage.login(
     "",
     users.standardUser.password

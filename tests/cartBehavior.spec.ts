@@ -20,7 +20,7 @@ test('Cart badge shows correct count after adding a product', async ({ page }) =
     const inventoryPage = new InventoryPage(page);
     await inventoryPage.addFirstItemToCart();
     const cartPage = new CartPage(page);
-    await expect(cartPage.cartBadge,"Cart badge should show 1 item").toHaveText("1");
+    await expect(cartPage.cartBadge).toHaveText("1");
 });
 
 test('Cart page shows the name of the selected product', async ({ page }) => {
@@ -38,9 +38,9 @@ test('Removing a product updates the cart (badge disappears or decrements)', asy
     await inventoryPage.openCart();
 
     const cartPage = new CartPage(page);
-    await expect(cartPage.cartBadge,"Cart badge should show 2 items").toHaveText("2");
+    await expect(cartPage.cartBadge).toHaveText("2");
     await cartPage.removeItem();
-    await expect(cartPage.cartBadge,"Cart badge should show 1 item").toHaveText("1");
+    await expect(cartPage.cartBadge).toHaveText("1");
     await cartPage.removeItem();
     await expect(cartPage.cartBadge).not.toBeVisible();
 });
@@ -50,6 +50,6 @@ test('Adding multiple products shows correct badge count', async ({ page }) => {
     await inventoryPage.addFirstItemToCart();
     await inventoryPage.addSecondItemToCart();
     const cartPage = new CartPage(page);
-    await expect(cartPage.cartBadge,"Cart badge should show 2 items").toHaveText("2");
+    await expect(cartPage.cartBadge).toHaveText("2");
     });
 });

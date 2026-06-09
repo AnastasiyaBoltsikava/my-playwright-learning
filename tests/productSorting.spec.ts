@@ -1,18 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { LoginPage } from "../pages/LoginPage";
-import { users } from "../testData/users";
 import { InventoryPage } from "../pages/InventoryPage";
+import { loginAsStandardUser } from "../utils/loginHelper";
 
 test.describe("Product sorting", () => {
   test.beforeEach(async ({ page }) => {
-
-    const loginPage = new LoginPage(page);
-    await loginPage.open();
-    await loginPage.login(
-      users.standardUser.username,
-      users.standardUser.password
-    );
-  });
+  await loginAsStandardUser(page);
+});
 
 test('Sort products (Low to high) ', async ({ page }) => {
 

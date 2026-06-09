@@ -1,18 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { LoginPage } from "../pages/LoginPage";
-import { users } from "../testData/users";
 import { InventoryPage } from "../pages/InventoryPage";
 import { CartPage } from "../pages/CartPage";
+import { loginAsStandardUser } from "../utils/loginHelper";
 
 test.describe("Cart functionality", () => {
   test.beforeEach(async ({ page }) => {
-
-    const loginPage = new LoginPage(page);
-    await loginPage.open();
-    await loginPage.login(
-      users.standardUser.username,
-      users.standardUser.password
-    );
+    await loginAsStandardUser(page);
   });
 
 test('Cart badge shows correct count after adding a product', async ({ page }) => {

@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
 import { users } from "../testData/users";
-import { errorMessages, messages } from "../testData/messages";
+import { errorMessages } from "../testData/messages";
 
 test("StandardUser can log in", async ({ page }) => {
   const loginPage = new LoginPage(page);
